@@ -15,6 +15,7 @@
     "@hookform/resolvers": "^5.5.7",
     "@rev-dash/env": "workspace:*",
     "@rev-dash/ui": "workspace:*",
+    "@rev-dash/data": "workspace:*",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/react-router": "^1.170.18",
     "dotenv": "catalog:",

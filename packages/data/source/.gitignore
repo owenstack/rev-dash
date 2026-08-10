@@ -1,0 +1,3 @@
+# Raw source CSVs are large and easily regenerated — see ../README.md
+*.csv
+!.gitignore
