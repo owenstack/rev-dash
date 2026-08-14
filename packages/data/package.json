@@ -1,21 +1,21 @@
 {
-  "name": "@rev-dash/data",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "exports": {
-    "./types": "./src/types.ts"
-  },
-  "scripts": {
-    "build": "bun run src/build.ts"
-  },
-  "dependencies": {
-    "papaparse": "^5.4.1"
-  },
-  "devDependencies": {
-    "@rev-dash/config": "workspace:*",
-    "@types/node": "catalog:",
-    "@types/papaparse": "^5.3.15",
-    "typescript": "catalog:"
-  }
+	"name": "@rev-dash/data",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./types": "./src/types.ts"
+	},
+	"scripts": {
+		"build": "bun run src/build.ts"
+	},
+	"dependencies": {
+		"papaparse": "^5.4.1"
+	},
+	"devDependencies": {
+		"@rev-dash/config": "workspace:*",
+		"@types/node": "catalog:",
+		"@types/papaparse": "^5.3.15",
+		"typescript": "catalog:"
+	}
 }
