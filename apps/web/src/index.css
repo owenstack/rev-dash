@@ -1,1 +1,123 @@
 @import "@rev-dash/ui/globals.css";
+
+/* Globe marker click targets — CSS Anchor Positioning (COBE's documented
+ * mechanism). COBE sets --cobe-{id} anchors and --cobe-visible-{id} per frame. */
+.globe-marker-btn {
+	position: absolute;
+	left: anchor(center);
+	top: anchor(top);
+	translate: -50% -50%;
+	width: 16px;
+	height: 16px;
+	border-radius: 9999px;
+	background: transparent;
+	cursor: pointer;
+}
+
+.globe-marker-btn:hover {
+	outline: 1px solid oklch(0.85 0 0 / 0.7);
+	outline-offset: 2px;
+}
+
+/* Motion vocabulary — matches the existing UI tokens:
+ * duration-100/200 and cubic-bezier(0.23, 1, 0.32, 1). */
+@keyframes rev-enter-translate {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes rev-fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Empty-state messages: fade + 4px rise on enter. */
+.motion-state-enter {
+	animation: rev-enter-translate 160ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	/* Same state change, 80ms — opacity only, no transform. */
+	.motion-state-enter {
+		animation-name: rev-fade;
+		animation-duration: 80ms;
+		animation-timing-function: linear;
+	}
+
+	::view-transition-old(selected-country-chip),
+	::view-transition-new(selected-country-chip) {
+		animation-duration: 80ms;
+		animation-timing-function: ease-out;
+	}
+}
+
+/* Selected-country chip: the chip carries [view-transition-name:
+ * selected-country-chip], so its old/new snapshots animate on select,
+ * replace and clear — 100ms out, 160ms in, transform + opacity only. */
+::view-transition-old(selected-country-chip) {
+	animation: selected-country-chip-out 100ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+::view-transition-new(selected-country-chip) {
+	animation: selected-country-chip-in 160ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes selected-country-chip-in {
+	from {
+		opacity: 0;
+		transform: scale(0.97);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes selected-country-chip-out {
+	from {
+		opacity: 1;
+		transform: scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: scale(0.97);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(selected-country-chip) {
+		animation: selected-country-chip-fade-out 80ms ease-out both;
+	}
+
+	::view-transition-new(selected-country-chip) {
+		animation: selected-country-chip-fade-in 80ms ease-out both;
+	}
+}
+
+@keyframes selected-country-chip-fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes selected-country-chip-fade-out {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}

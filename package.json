@@ -28,7 +28,7 @@
 		"build": "turbo run build",
 		"check-types": "turbo run check-types",
 		"dev:web": "turbo run dev -F web",
-		"deploy": "turbo --env-mode=loose run deploy -F @rev-dash/infra",
+		"deploy": "turbo run deploy -F @rev-dash/infra --env-mode=loose",
 		"destroy": "turbo run destroy -F @rev-dash/infra",
 		"check": "biome check --write ."
 	},

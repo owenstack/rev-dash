@@ -4,20 +4,23 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "vite build",
+		"build": "bun run scripts/gen-coverage.ts && vite build",
 		"serve": "vite preview",
-		"start": "vite",
+		"start": "bun run scripts/gen-coverage.ts && vite",
 		"check-types": "vite build && tsc --noEmit",
-		"dev:bare": "vite dev",
-		"generate-pwa-assets": "pwa-assets-generator"
+		"dev:bare": "bun run scripts/gen-coverage.ts && vite dev",
+		"generate-pwa-assets": "pwa-assets-generator",
+		"dev": "bun run scripts/gen-coverage.ts && vite dev"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.5.7",
+		"@rev-dash/data": "workspace:*",
 		"@rev-dash/env": "workspace:*",
 		"@rev-dash/ui": "workspace:*",
-		"@rev-dash/data": "workspace:*",
 		"@tailwindcss/vite": "^4.3.3",
+		"@tanstack/charts": "^0.14.0",
 		"@tanstack/react-router": "^1.170.18",
+		"cobe": "^2.0.1",
 		"dotenv": "catalog:",
 		"lucide-react": "catalog:",
 		"next-themes": "catalog:",
@@ -25,7 +28,7 @@
 		"react-dom": "catalog:",
 		"sonner": "catalog:",
 		"vite-plugin-pwa": "^1.3.0",
-		"zod": "catalog:"
+		"zod": "^4.4.3"
 	},
 	"devDependencies": {
 		"@rev-dash/config": "workspace:*",
@@ -40,6 +43,7 @@
 		"postcss": "^8.5.24",
 		"tailwindcss": "catalog:",
 		"typescript": "catalog:",
-		"vite": "^8.1.5"
+		"vite": "^8.1.5",
+		"world-countries": "^5.1.0"
 	}
 }

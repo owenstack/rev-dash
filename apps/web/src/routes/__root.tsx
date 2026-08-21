@@ -6,7 +6,6 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
-import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 
 import "../index.css";
@@ -18,11 +17,12 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 	head: () => ({
 		meta: [
 			{
-				title: "rev-dash",
+				title: "rev-dash — how does a country pay for itself?",
 			},
 			{
 				name: "description",
-				content: "rev-dash is a web application",
+				content:
+					"An editorial exploration of 40+ years of tax revenue data across 197 countries.",
 			},
 		],
 		links: [
@@ -44,8 +44,7 @@ function RootComponent() {
 				disableTransitionOnChange
 				storageKey="vite-ui-theme"
 			>
-				<div className="grid h-svh grid-rows-[auto_1fr]">
-					<Header />
+				<div className="min-h-svh">
 					<Outlet />
 				</div>
 				<Toaster richColors />
