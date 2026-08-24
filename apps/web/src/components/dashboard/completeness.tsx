@@ -212,9 +212,11 @@ export function CoverageTag({ meta }: { meta: CountryMeta }) {
 
 /** Transparency/attribution section — a content pillar, not a footnote. */
 export function Methodology({
+	number,
 	sources,
 	index,
 }: {
+	number: string;
 	sources: DataSourceMeta[];
 	index: CountryMeta[];
 }) {
@@ -228,7 +230,7 @@ export function Methodology({
 			className="mx-auto max-w-6xl scroll-mt-16 border-border/60 border-t px-4 py-16 md:py-24"
 		>
 			<p className="mb-3 font-mono text-muted-foreground text-xs uppercase tracking-widest">
-				07 — Sources &amp; method
+				{number} — Sources &amp; method
 			</p>
 			<h2 className="max-w-2xl text-balance font-medium font-serif text-2xl leading-snug tracking-tight md:text-3xl">
 				Where every number comes from — and exactly what we don't know.

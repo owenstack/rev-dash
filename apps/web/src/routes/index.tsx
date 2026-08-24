@@ -131,16 +131,15 @@ function DashboardPage() {
 						<p className="mb-4 font-mono text-[oklch(0.65_0.005_80)] text-xs uppercase tracking-widest">
 							40+ years · 197 countries · three sources
 						</p>
-						<h1 className="text-balance font-serif font-medium text-4xl leading-[1.1] tracking-[-0.02em] md:text-[3.4rem]">
+						<h1 className="text-balance font-medium font-serif text-4xl leading-[1.1] tracking-[-0.02em] md:text-[3.4rem]">
 							How does a country pay for itself — and is it collecting what it
 							could?
 						</h1>
 						<p className="mt-5 max-w-prose text-[oklch(0.75_0.005_80)] text-sm leading-relaxed [text-wrap:pretty] md:text-base">
-							An exploration of how governments fund themselves, built on tax
-							revenue data from the UNU-WIDER Government Revenue Dataset, the
-							IMF, and a modeled picture of what each country could
-							realistically collect. Click a dot on the globe, or search a
-							country above.
+							Built on tax revenue data from the UNU-WIDER Government Revenue
+							Dataset, the IMF, and a modeled picture of what each country could
+							realistically collect. Click a dot on the globe, or type a
+							country's name.
 						</p>
 					</div>
 					<HeroGlobe
@@ -169,11 +168,15 @@ function DashboardPage() {
 				/>
 			)}
 
-			<Methodology sources={data.sources} index={data.index} />
+			<Methodology
+				number={series && selectedMeta ? "06" : "05"}
+				sources={data.sources}
+				index={data.index}
+			/>
 
 			<footer className="border-border/60 border-t px-4 py-8 text-center font-mono text-muted-foreground text-xs">
-				rev-dash — a data-journalism prototype. All figures are shares of GDP
-				unless noted.
+				rev-dash — an exploration of how governments pay for themselves. All
+				figures are shares of GDP unless noted.
 			</footer>
 		</div>
 	);
@@ -219,6 +222,42 @@ function OverviewSections({
 }) {
 	const plottable = useMemo(() => rows.filter(plottableTaxShare), [rows]);
 
+	// Range and capacity-fit stats so the section copy states real numbers
+	// instead of vague quantifiers.
+	const rangeStats = useMemo(() => {
+		const valued = plottable.filter((r) => r.taxRevenue != null);
+		if (!valued.length) return null;
+		let lo = valued[0];
+		let hi = valued[0];
+		for (const r of valued) {
+			if ((r.taxRevenue ?? 0) < (lo.taxRevenue ?? 0)) lo = r;
+			if ((r.taxRevenue ?? 0) > (hi.taxRevenue ?? 0)) hi = r;
+		}
+		// Strength of linear association between modeled capacity and actual
+		// collection — Pearson's correlation coefficient r.
+		const paired = valued.filter((r) => r.capTaxRevenue != null);
+		let r: number | null = null;
+		if (paired.length > 2) {
+			const mx =
+				paired.reduce((s, row) => s + (row.capTaxRevenue ?? 0), 0) /
+				paired.length;
+			const my =
+				paired.reduce((s, row) => s + (row.taxRevenue ?? 0), 0) / paired.length;
+			let sxy = 0;
+			let sxx = 0;
+			let syy = 0;
+			for (const row of paired) {
+				const dx = (row.capTaxRevenue ?? 0) - mx;
+				const dy = (row.taxRevenue ?? 0) - my;
+				sxy += dx * dy;
+				sxx += dx * dx;
+				syy += dy * dy;
+			}
+			if (sxx > 0 && syy > 0) r = sxy / Math.sqrt(sxx * syy);
+		}
+		return { lo, hi, n: valued.length, r };
+	}, [plottable]);
+
 	const _averages = useMemo(() => {
 		const acc = new Map<string, { sum: number; n: number }>();
 		for (const r of plottable) {
@@ -257,9 +296,13 @@ function OverviewSections({
 				}
 			>
 				<p>
-					Tax-to-GDP spans an enormous range across these 197 countries. Rich
-					economies cluster at the top — but capacity, not just wealth, explains
-					a lot of the spread. Click any bar to put a country under the lens.
+					{rangeStats
+						? `Tax-to-GDP runs from ${Math.round(rangeStats.lo.taxRevenue ?? 0)}% of GDP (${rangeStats.lo.countryName}) to ${Math.round(rangeStats.hi.taxRevenue ?? 0)}% (${rangeStats.hi.countryName}) across ${rangeStats.n} countries.`
+						: "Tax-to-GDP varies enormously across these countries."}{" "}
+					Rich economies cluster at the top — and collection tracks closely with
+					modeled capacity, not just wealth (correlation ≈{" "}
+					{rangeStats?.r != null ? `${rangeStats.r.toFixed(2)}).` : "—)."} Click
+					any bar to put a country under the lens.
 				</p>
 			</Section>
 
@@ -439,8 +482,8 @@ function CountrySections({
 			>
 				<p>
 					De jure rates tell a different story than collections: a country can
-					have high statutory rates and low revenue when enforcement, bases, or
-					exemptions get in the way.
+					post high statutory rates and still collect little — when enforcement
+					is thin, bases are narrow, or exemptions carve away the base.
 				</p>
 			</Section>
 
