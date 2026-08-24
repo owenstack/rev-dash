@@ -1,4 +1,21 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/newsreader";
 @import "@rev-dash/ui/globals.css";
+
+/* Editorial pairing: Newsreader (display serif) for question headlines,
+ * Inter for body/UI and chart labels. */
+@theme {
+	--font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+	--font-serif:
+		"Newsreader Variable", ui-serif, Georgia, Cambria, "Times New Roman",
+		serif;
+}
+
+/* Data-heavy page: aligned digits everywhere, including inside SVG charts. */
+body,
+svg text {
+	font-variant-numeric: tabular-nums;
+}
 
 /* Globe marker click targets — CSS Anchor Positioning (COBE's documented
  * mechanism). COBE sets --cobe-{id} anchors and --cobe-visible-{id} per frame. */

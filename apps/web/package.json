@@ -13,6 +13,8 @@
 		"dev": "bun run scripts/gen-coverage.ts && vite dev"
 	},
 	"dependencies": {
+		"@fontsource-variable/inter": "^5.3.0",
+		"@fontsource-variable/newsreader": "^5.3.0",
 		"@hookform/resolvers": "^5.5.7",
 		"@rev-dash/data": "workspace:*",
 		"@rev-dash/env": "workspace:*",

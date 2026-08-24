@@ -118,18 +118,24 @@ function DashboardPage() {
 				onClear={() => select(null)}
 			/>
 
-			{/* Hero — dark, globe as the primary input */}
-			<header className="relative overflow-hidden">
-				<div className="mx-auto grid max-w-6xl items-center gap-8 px-4 pt-16 pb-10 md:grid-cols-2 md:pt-24">
+			{/* Hero — dark, globe as the primary input. Fixed warm-charcoal palette
+			 so the dark globe always sits on a dark field, independent of theme. */}
+			<header className="relative overflow-hidden bg-[oklch(0.18_0.005_80)] text-[oklch(0.96_0.003_80)]">
+				{/* subtle radial light behind the globe */}
+				<div
+					aria-hidden
+					className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_80%_at_70%_40%,oklch(0.26_0.01_80),transparent_70%)]"
+				/>
+				<div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 pt-16 pb-12 md:grid-cols-2 md:pt-24 md:pb-16">
 					<div>
-						<p className="mb-4 font-mono text-muted-foreground text-xs uppercase tracking-widest">
+						<p className="mb-4 font-mono text-[oklch(0.65_0.005_80)] text-xs uppercase tracking-widest">
 							40+ years · 197 countries · three sources
 						</p>
-						<h1 className="text-balance font-medium font-serif text-4xl leading-tight tracking-tight md:text-5xl">
+						<h1 className="text-balance font-serif font-medium text-4xl leading-[1.1] tracking-[-0.02em] md:text-[3.4rem]">
 							How does a country pay for itself — and is it collecting what it
 							could?
 						</h1>
-						<p className="mt-5 max-w-prose text-muted-foreground text-sm leading-relaxed md:text-base">
+						<p className="mt-5 max-w-prose text-[oklch(0.75_0.005_80)] text-sm leading-relaxed [text-wrap:pretty] md:text-base">
 							An exploration of how governments fund themselves, built on tax
 							revenue data from the UNU-WIDER Government Revenue Dataset, the
 							IMF, and a modeled picture of what each country could
