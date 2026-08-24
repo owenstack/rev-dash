@@ -41,7 +41,7 @@ export function FilterBar({
 		<div className="sticky top-0 z-50 border-border/60 border-b bg-background/85 backdrop-blur">
 			<div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2">
 				<a href="/" className="font-semibold font-serif text-sm tracking-tight">
-					rev<span className="text-muted-foreground">·</span>dash
+					The Public Purse
 				</a>
 
 				<div className="relative ml-auto w-56 md:w-64">
