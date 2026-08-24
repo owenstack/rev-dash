@@ -12,11 +12,11 @@
 	},
 	"iconLibrary": "lucide",
 	"aliases": {
-		"components": "@rev-dash/ui/components",
-		"utils": "@rev-dash/ui/lib/utils",
-		"hooks": "@rev-dash/ui/hooks",
-		"lib": "@rev-dash/ui/lib",
-		"ui": "@rev-dash/ui/components"
+		"components": "@public-purse/ui/components",
+		"utils": "@public-purse/ui/lib/utils",
+		"hooks": "@public-purse/ui/hooks",
+		"lib": "@public-purse/ui/lib",
+		"ui": "@public-purse/ui/components"
 	},
 	"menuColor": "default",
 	"menuAccent": "subtle",

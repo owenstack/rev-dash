@@ -1,4 +1,4 @@
-import type { CountryMeta, DataSourceMeta } from "@rev-dash/data/types";
+import type { CountryMeta, DataSourceMeta } from "@public-purse/data/types";
 import { useMemo } from "react";
 import type { CountryCoverage } from "@/lib/data";
 
@@ -93,7 +93,7 @@ export function CompletenessHeatmap({
 			</table>
 			<p className="mt-3 text-muted-foreground text-xs">
 				Share of countries in each region with tax-revenue data for that year.
-				The empty stretches are real — they are the story of what the sources do
+				The empty stretches are real: they are the story of what the sources do
 				and don't cover.
 			</p>
 		</div>
@@ -230,10 +230,10 @@ export function Methodology({
 			className="mx-auto max-w-6xl scroll-mt-16 border-border/60 border-t px-4 py-16 md:py-24"
 		>
 			<p className="mb-3 font-mono text-muted-foreground text-xs uppercase tracking-widest">
-				{number} — Sources &amp; method
+				{number} · Sources &amp; method
 			</p>
 			<h2 className="max-w-2xl text-balance font-medium font-serif text-2xl leading-snug tracking-tight md:text-3xl">
-				Where every number comes from — and exactly what we don't know.
+				Where every number comes from, and exactly what we don't know.
 			</h2>
 			<p className="mt-4 max-w-prose text-muted-foreground text-sm leading-relaxed">
 				This page blends three independently-sourced datasets with different

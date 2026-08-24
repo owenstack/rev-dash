@@ -10,7 +10,7 @@
   "$schema": "https://r2.better-t-stack.dev/schema.json",
   "version": "3.38.2",
   "createdAt": "2026-08-10T11:17:36.011Z",
-  "reproducibleCommand": "bun create better-t-stack@latest rev-dash --frontend tanstack-router --backend none --runtime none --database none --orm none --api none --auth none --payments none --addons biome pwa turborepo --examples none --db-setup none --web-deploy cloudflare --server-deploy none --git --package-manager bun --install",
+  "reproducibleCommand": "bun create better-t-stack@latest public-purse --frontend tanstack-router --backend none --runtime none --database none --orm none --api none --auth none --payments none --addons biome pwa turborepo --examples none --db-setup none --web-deploy cloudflare --server-deploy none --git --package-manager bun --install",
   "database": "none",
   "orm": "none",
   "backend": "none",

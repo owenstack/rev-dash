@@ -1,4 +1,4 @@
-import { cn } from "@rev-dash/ui/lib/utils";
+import { cn } from "@public-purse/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 function Empty({ className, ...props }: React.ComponentProps<"div">) {

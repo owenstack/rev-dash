@@ -1,29 +1,29 @@
 [
-	{
-		"id": "revenue-academy",
-		"name": "Tax composition, capacity, gap & buoyancy (SFA-derived)",
-		"provider": "Revenue Academy (blend of UNU-WIDER GRD, IMF WoRLD, IMF WoRLD-derived capacity model)",
-		"url": "https://github.com/Revenue-Academy/Tax-Revenue-Dashboard",
-		"retrievedAt": "2026-08-10",
-		"citation": "Revenue Academy Tax Revenue Dashboard, processed dataset",
-		"notes": "Primary source for taxRevenue, capacity/gap/buoyancy fields, and statutory rates. Coverage varies sharply by country — see index.json yearsWithTaxData."
-	},
-	{
-		"id": "imf-gov-revenue",
-		"name": "Total government revenue (budgetary central government), % GDP",
-		"provider": "International Monetary Fund, via Our World in Data",
-		"url": "https://ourworldindata.org/grapher/government-revenues-as-a-share-of-gdp-imf.csv?v=1&csvType=full&useColumnShortNames=false",
-		"retrievedAt": "2026-08-14",
-		"citation": "International Monetary Fund — with minor processing by Our World in Data",
-		"notes": "Total revenue including non-tax sources, not tax revenue alone — not directly comparable to taxRevenue. Useful where it extends coverage past the primary source's last year."
-	},
-	{
-		"id": "imf-tax-revenue",
-		"name": "Tax revenue, % GDP (IMF GFS Yearbook / UN SDG 17.1)",
-		"provider": "International Monetary Fund, World Bank, OECD, via Our World in Data",
-		"url": "https://ourworldindata.org/grapher/tax-revenues-as-a-share-of-gdp-unsdg.csv?v=1&csvType=full&useColumnShortNames=false",
-		"retrievedAt": "2026-08-14",
-		"citation": "IMF Government Finance Statistics Yearbook and data files, and World Bank/OECD GDP estimates",
-		"notes": "Directly comparable to taxRevenue. Some countries (e.g. those that don't report to the IMF GFS Yearbook) are entirely absent — treat absence as a data point, not a gap to fill."
-	}
+  {
+    "id": "revenue-academy",
+    "name": "Tax composition, capacity, gap & buoyancy (SFA-derived)",
+    "provider": "Revenue Academy (blend of UNU-WIDER GRD, IMF WoRLD, IMF WoRLD-derived capacity model)",
+    "url": "https://github.com/Revenue-Academy/Tax-Revenue-Dashboard",
+    "retrievedAt": "2026-08-10",
+    "citation": "Revenue Academy Tax Revenue Dashboard, processed dataset",
+    "notes": "Primary source for taxRevenue, capacity/gap/buoyancy fields, and statutory rates. Coverage varies sharply by country — see index.json yearsWithTaxData."
+  },
+  {
+    "id": "imf-gov-revenue",
+    "name": "Total government revenue (budgetary central government), % GDP",
+    "provider": "International Monetary Fund, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/government-revenues-as-a-share-of-gdp-imf.csv?v=1&csvType=full&useColumnShortNames=false",
+    "retrievedAt": "2026-08-24",
+    "citation": "International Monetary Fund — with minor processing by Our World in Data",
+    "notes": "Total revenue including non-tax sources, not tax revenue alone — not directly comparable to taxRevenue. Useful where it extends coverage past the primary source's last year."
+  },
+  {
+    "id": "imf-tax-revenue",
+    "name": "Tax revenue, % GDP (IMF GFS Yearbook / UN SDG 17.1)",
+    "provider": "International Monetary Fund, World Bank, OECD, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/tax-revenues-as-a-share-of-gdp-unsdg.csv?v=1&csvType=full&useColumnShortNames=false",
+    "retrievedAt": "2026-08-24",
+    "citation": "IMF Government Finance Statistics Yearbook and data files, and World Bank/OECD GDP estimates",
+    "notes": "Directly comparable to taxRevenue. Some countries (e.g. those that don't report to the IMF GFS Yearbook) are entirely absent — treat absence as a data point, not a gap to fill."
+  }
 ]

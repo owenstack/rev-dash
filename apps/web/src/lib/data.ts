@@ -3,7 +3,7 @@ import type {
 	CountryYearRecord,
 	DataSourceMeta,
 	WorldSnapshotRow,
-} from "@rev-dash/data/types";
+} from "@public-purse/data/types";
 
 async function getJson<T>(url: string): Promise<T> {
 	const res = await fetch(url);

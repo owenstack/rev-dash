@@ -11,7 +11,7 @@
 		"rootDirs": ["."],
 		"paths": {
 			"@/*": ["./src/*"],
-			"@rev-dash/ui/*": ["../../packages/ui/src/*"]
+			"@public-purse/ui/*": ["../../packages/ui/src/*"]
 		}
 	}
 }

@@ -1,6 +1,6 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/newsreader";
-@import "@rev-dash/ui/globals.css";
+@import "@public-purse/ui/globals.css";
 
 /* Editorial pairing: Newsreader (display serif) for question headlines,
  * Inter for body/UI and chart labels. */

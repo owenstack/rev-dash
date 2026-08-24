@@ -1,4 +1,4 @@
-import type { CountryMeta } from "@rev-dash/data/types";
+import type { CountryMeta } from "@public-purse/data/types";
 import createGlobe from "cobe";
 import { useEffect, useMemo, useRef } from "react";
 import { COUNTRY_COORDS } from "@/lib/coords";

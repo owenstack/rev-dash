@@ -1,7 +1,7 @@
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
-import { Button } from "@rev-dash/ui/components/button";
-import { cn } from "@rev-dash/ui/lib/utils";
+import { Button } from "@public-purse/ui/components/button";
+import { cn } from "@public-purse/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 

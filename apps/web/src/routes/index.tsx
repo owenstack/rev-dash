@@ -1,4 +1,4 @@
-import type { CountryMeta, WorldSnapshotRow } from "@rev-dash/data/types";
+import type { CountryMeta, WorldSnapshotRow } from "@public-purse/data/types";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { z } from "zod";
@@ -132,7 +132,7 @@ function DashboardPage() {
 							40+ years · 197 countries · three sources
 						</p>
 						<h1 className="text-balance font-medium font-serif text-4xl leading-[1.1] tracking-[-0.02em] md:text-[3.4rem]">
-							How does a country pay for itself — and is it collecting what it
+							How does a country pay for itself, and is it collecting what it
 							could?
 						</h1>
 						<p className="mt-5 max-w-prose text-[oklch(0.75_0.005_80)] text-sm leading-relaxed [text-wrap:pretty] md:text-base">
@@ -175,8 +175,8 @@ function DashboardPage() {
 			/>
 
 			<footer className="border-border/60 border-t px-4 py-8 text-center font-mono text-muted-foreground text-xs">
-				rev-dash — an exploration of how governments pay for themselves. All
-				figures are shares of GDP unless noted.
+				The Public Purse: an exploration of how governments pay for themselves.
+				All figures are shares of GDP unless noted.
 			</footer>
 		</div>
 	);
@@ -282,7 +282,7 @@ function OverviewSections({
 			<Section
 				number="01"
 				kicker="Level"
-				question="Which countries collect the most — and the least — relative to their economies?"
+				question="Which countries collect the most and the least, relative to their economies?"
 				aside={
 					<div className="space-y-3">
 						<RankedBars rows={rows} onSelect={onSelect} />
@@ -290,7 +290,7 @@ function OverviewSections({
 						<p className="text-muted-foreground text-xs">
 							El Salvador's 1990s values (67–113% of GDP in the primary source,
 							almost certainly a reporting artifact) are excluded. Lesotho's
-							high ratio is real — SACU customs revenue-sharing.
+							high ratio is real: SACU customs revenue-sharing.
 						</p>
 					</div>
 				}
@@ -299,10 +299,10 @@ function OverviewSections({
 					{rangeStats
 						? `Tax-to-GDP runs from ${Math.round(rangeStats.lo.taxRevenue ?? 0)}% of GDP (${rangeStats.lo.countryName}) to ${Math.round(rangeStats.hi.taxRevenue ?? 0)}% (${rangeStats.hi.countryName}) across ${rangeStats.n} countries.`
 						: "Tax-to-GDP varies enormously across these countries."}{" "}
-					Rich economies cluster at the top — and collection tracks closely with
-					modeled capacity, not just wealth (correlation ≈{" "}
-					{rangeStats?.r != null ? `${rangeStats.r.toFixed(2)}).` : "—)."} Click
-					any bar to put a country under the lens.
+					Rich economies cluster at the top, and collection tracks closely with
+					modeled capacity, beyond what wealth alone would predict (correlation
+					≈ {rangeStats?.r != null ? `${rangeStats.r.toFixed(2)}).` : "n/a)."}{" "}
+					Click any bar to put a country under the lens.
 				</p>
 			</Section>
 
@@ -316,15 +316,15 @@ function OverviewSections({
 						<LegendIncomeGroups />
 						<p className="text-muted-foreground text-xs">
 							Dashed line = the frontier where actual revenue equals modeled
-							capacity. No country exceeds its modeled capacity in this dataset
-							— everyone sits at or below the line.
+							capacity. No country exceeds its modeled capacity in this dataset.
+							Everyone sits at or below the line.
 						</p>
 					</div>
 				}
 			>
 				<p>
 					A statistical model estimates each country's taxable capacity from
-					structural features — income, trade openness, sector composition. The
+					structural features: income, trade openness, sector composition. The
 					vertical distance below the dashed frontier is the gap between what a
 					country collects and what, structurally, it could.
 				</p>
@@ -356,7 +356,7 @@ function OverviewSections({
 				aside={<CompletenessHeatmap index={index} coverage={coverage} />}
 			>
 				<p>
-					Coverage is uneven in space and in time — some regions have four
+					Coverage is uneven in space and in time: some regions have four
 					decades of near-complete data, others have thin stretches or long
 					silences. Selecting a country shows exactly which years exist for it,
 					and from which source.
@@ -424,7 +424,7 @@ function CountrySections({
 			>
 				<p>
 					The model estimates what {meta.name}'s economy could sustainably
-					support in tax collection. The shaded band is forgone revenue — though
+					support in tax collection. The shaded band is forgone revenue, though
 					capacity is a benchmark, not a target: closing the whole gap is rarely
 					feasible or desirable.
 				</p>
@@ -443,7 +443,7 @@ function CountrySections({
 				}
 			>
 				<p>
-					The stack decomposes total tax take into its instruments — income,
+					The stack decomposes total tax take into its instruments: income,
 					consumption, trade. Watch how reliance shifts as the economy changes:
 					trade taxes shrinking, VAT growing, income taxes maturing.
 				</p>
@@ -463,7 +463,7 @@ function CountrySections({
 				}
 			>
 				<p>
-					Same metric — latest available tax-to-GDP — against two reference
+					Same metric (latest available tax-to-GDP) against two reference
 					points: the regional average and the income-group average. Context
 					matters more than rank.
 				</p>
@@ -482,8 +482,8 @@ function CountrySections({
 			>
 				<p>
 					De jure rates tell a different story than collections: a country can
-					post high statutory rates and still collect little — when enforcement
-					is thin, bases are narrow, or exemptions carve away the base.
+					post high statutory rates and still collect little, because narrow
+					bases, exemptions, and weak enforcement keep money out of the net.
 				</p>
 			</Section>
 

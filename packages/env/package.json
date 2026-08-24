@@ -1,5 +1,5 @@
 {
-	"name": "@rev-dash/env",
+	"name": "@public-purse/env",
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
@@ -12,8 +12,8 @@
 		"zod": "catalog:"
 	},
 	"devDependencies": {
-		"@rev-dash/config": "workspace:*",
-		"@rev-dash/infra": "workspace:*",
+		"@public-purse/config": "workspace:*",
+		"@public-purse/infra": "workspace:*",
 		"@types/node": "catalog:",
 		"typescript": "catalog:"
 	}

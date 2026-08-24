@@ -1,5 +1,5 @@
 {
-	"extends": "@rev-dash/config/tsconfig.base.json",
+	"extends": "@public-purse/config/tsconfig.base.json",
 	"compilerOptions": {
 		"types": ["node"]
 	},

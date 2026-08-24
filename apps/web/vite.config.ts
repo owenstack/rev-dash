@@ -21,9 +21,9 @@ export default defineConfig({
 		VitePWA({
 			registerType: "autoUpdate",
 			manifest: {
-				name: "rev-dash",
-				short_name: "rev-dash",
-				description: "rev-dash - PWA Application",
+				name: "public-purse",
+				short_name: "public-purse",
+				description: "public-purse - PWA Application",
 				theme_color: "#0c0c0c",
 			},
 			pwaAssets: { disabled: false, config: true },

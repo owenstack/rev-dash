@@ -1,6 +1,6 @@
-import type { CountryMeta } from "@rev-dash/data/types";
-import { Button } from "@rev-dash/ui/components/button";
-import { Input } from "@rev-dash/ui/components/input";
+import type { CountryMeta } from "@public-purse/data/types";
+import { Button } from "@public-purse/ui/components/button";
+import { Input } from "@public-purse/ui/components/input";
 import { X } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { incomeColor } from "@/lib/palette";

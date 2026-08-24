@@ -1,4 +1,4 @@
-import { cn } from "@rev-dash/ui/lib/utils";
+import { cn } from "@public-purse/ui/lib/utils";
 import type * as React from "react";
 
 function MessageGroup({ className, ...props }: React.ComponentProps<"div">) {

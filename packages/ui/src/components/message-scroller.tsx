@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@rev-dash/ui/components/button";
-import { cn } from "@rev-dash/ui/lib/utils";
+import { Button } from "@public-purse/ui/components/button";
+import { cn } from "@public-purse/ui/lib/utils";
 import {
 	MessageScroller as MessageScrollerPrimitive,
 	useMessageScroller,

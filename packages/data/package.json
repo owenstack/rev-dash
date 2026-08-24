@@ -1,5 +1,5 @@
 {
-	"name": "@rev-dash/data",
+	"name": "@public-purse/data",
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
@@ -13,7 +13,7 @@
 		"papaparse": "^5.4.1"
 	},
 	"devDependencies": {
-		"@rev-dash/config": "workspace:*",
+		"@public-purse/config": "workspace:*",
 		"@types/node": "catalog:",
 		"@types/papaparse": "^5.3.15",
 		"typescript": "catalog:"

@@ -1,4 +1,4 @@
-import { Toaster } from "@rev-dash/ui/components/sonner";
+import { Toaster } from "@public-purse/ui/components/sonner";
 import {
 	createRootRouteWithContext,
 	HeadContent,
@@ -17,7 +17,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 	head: () => ({
 		meta: [
 			{
-				title: "rev-dash — how does a country pay for itself?",
+				title: "The Public Purse: how does a country pay for itself?",
 			},
 			{
 				name: "description",

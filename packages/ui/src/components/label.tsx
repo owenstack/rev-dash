@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@rev-dash/ui/lib/utils";
+import { cn } from "@public-purse/ui/lib/utils";
 import type * as React from "react";
 
 function Label({ className, ...props }: React.ComponentProps<"label">) {

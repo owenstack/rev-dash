@@ -1,5 +1,5 @@
 {
-	"name": "@rev-dash/infra",
+	"name": "@public-purse/infra",
 	"private": true,
 	"type": "module",
 	"scripts": {
@@ -12,7 +12,7 @@
 		"zod": "catalog:"
 	},
 	"devDependencies": {
-		"@rev-dash/config": "workspace:*",
+		"@public-purse/config": "workspace:*",
 		"alchemy": "catalog:",
 		"typescript": "catalog:"
 	}

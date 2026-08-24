@@ -1,11 +1,11 @@
 {
-	"extends": "@rev-dash/config/tsconfig.base.json",
+	"extends": "@public-purse/config/tsconfig.base.json",
 	"compilerOptions": {
 		"jsx": "react-jsx",
 		"lib": ["ESNext", "DOM", "DOM.Iterable"],
 		"types": [],
 		"paths": {
-			"@rev-dash/ui/*": ["./src/*"]
+			"@public-purse/ui/*": ["./src/*"]
 		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx"],

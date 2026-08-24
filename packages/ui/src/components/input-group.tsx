@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@rev-dash/ui/components/button";
-import { Input } from "@rev-dash/ui/components/input";
-import { Textarea } from "@rev-dash/ui/components/textarea";
-import { cn } from "@rev-dash/ui/lib/utils";
+import { Button } from "@public-purse/ui/components/button";
+import { Input } from "@public-purse/ui/components/input";
+import { Textarea } from "@public-purse/ui/components/textarea";
+import { cn } from "@public-purse/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 

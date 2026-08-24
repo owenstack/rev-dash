@@ -1,4 +1,4 @@
-# Design prompt: rev-dash — a tax revenue exploration dashboard
+# Design prompt: public-purse — a tax revenue exploration dashboard
 
 ## What this is
 

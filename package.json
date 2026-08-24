@@ -1,5 +1,5 @@
 {
-	"name": "rev-dash",
+	"name": "public-purse",
 	"private": true,
 	"workspaces": {
 		"packages": [
@@ -28,19 +28,19 @@
 		"build": "turbo run build",
 		"check-types": "turbo run check-types",
 		"dev:web": "turbo run dev -F web",
-		"deploy": "turbo run deploy -F @rev-dash/infra --env-mode=loose",
-		"destroy": "turbo run destroy -F @rev-dash/infra",
+		"deploy": "turbo run deploy -F @public-purse/infra --env-mode=loose",
+		"destroy": "turbo run destroy -F @public-purse/infra",
 		"check": "biome check --write ."
 	},
 	"dependencies": {
-		"@rev-dash/env": "workspace:*",
+		"@public-purse/env": "workspace:*",
 		"dotenv": "catalog:",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.6",
 		"@cloudflare/workers-types": "^5.20260728.1",
-		"@rev-dash/config": "workspace:*",
+		"@public-purse/config": "workspace:*",
 		"@types/node": "catalog:",
 		"turbo": "^2.10.7",
 		"typescript": "catalog:"

@@ -1,4 +1,4 @@
-import type { CountryYearRecord, WorldSnapshotRow } from "@rev-dash/data/types";
+import type { CountryYearRecord, WorldSnapshotRow } from "@public-purse/data/types";
 import { areaY, barX, defineChart, dot, lineY } from "@tanstack/charts";
 import type { ChartProps } from "@tanstack/charts/react";
 import { Chart } from "@tanstack/charts/react";

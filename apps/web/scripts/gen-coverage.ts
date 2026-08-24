@@ -14,7 +14,7 @@ const outFile = new URL("../public/data/coverage.json", import.meta.url);
 if (!existsSync(countriesDir)) {
 	console.error(
 		"gen-coverage: public/data/countries/ not found. " +
-			"Run `bun run --filter @rev-dash/data build` first.",
+			"Run `bun run --filter @public-purse/data build` first.",
 	);
 	process.exit(1);
 }
@@ -48,7 +48,7 @@ for (const file of readdirSync(countriesDir)) {
 if (Object.keys(out).length === 0) {
 	console.error(
 		"gen-coverage: no usable country files in public/data/countries/. " +
-			"Run `bun run --filter @rev-dash/data build` first.",
+			"Run `bun run --filter @public-purse/data build` first.",
 	);
 	process.exit(1);
 }

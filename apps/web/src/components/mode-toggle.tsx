@@ -1,10 +1,10 @@
-import { Button } from "@rev-dash/ui/components/button";
+import { Button } from "@public-purse/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@rev-dash/ui/components/dropdown-menu";
+} from "@public-purse/ui/components/dropdown-menu";
 import { Moon, Sun } from "lucide-react";
 
 import { useTheme } from "@/components/theme-provider";

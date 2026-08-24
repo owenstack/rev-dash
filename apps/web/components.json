@@ -13,8 +13,8 @@
 	"iconLibrary": "lucide",
 	"aliases": {
 		"components": "@/components",
-		"utils": "@rev-dash/ui/lib/utils",
-		"ui": "@rev-dash/ui/components",
+		"utils": "@public-purse/ui/lib/utils",
+		"ui": "@public-purse/ui/components",
 		"lib": "@/lib",
 		"hooks": "@/hooks"
 	},

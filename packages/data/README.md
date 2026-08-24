@@ -1,4 +1,4 @@
-# @rev-dash/data
+# @public-purse/data
 
 Build pipeline that turns the Revenue Academy Tax Revenue Dashboard's source
 data into static JSON consumed by `apps/web`. No backend — output ships as
@@ -16,7 +16,7 @@ network access and the `unrar` command to be installed.
 ## Building
 
 ```bash
-bun run --filter @rev-dash/data build
+bun run --filter @public-purse/data build
 ```
 
 This writes to `apps/web/public/data/`:
@@ -70,4 +70,4 @@ paper over.
 
 See `src/types.ts` for the full `CountryYearRecord`, `CountryMeta`, and
 `WorldSnapshotRow` shapes — import these directly in `apps/web` via
-`@rev-dash/data/types` rather than redefining them.
+`@public-purse/data/types` rather than redefining them.

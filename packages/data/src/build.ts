@@ -206,7 +206,7 @@ async function downloadAndExtractSources(): Promise<{
 	sourceDir: string;
 	cleanup: () => Promise<void>;
 }> {
-	const sourceDir = await mkdtemp(path.join(tmpdir(), "rev-dash-data-"));
+	const sourceDir = await mkdtemp(path.join(tmpdir(), "public-purse-data-"));
 
 	try {
 		for (const { archive, file } of SOURCE_ARCHIVES) {
