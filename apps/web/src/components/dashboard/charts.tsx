@@ -7,7 +7,7 @@ import { scaleLinear } from "@tanstack/charts/scales/linear";
 import { scaleOrdinal } from "@tanstack/charts/scales/ordinal";
 import { tooltip } from "@tanstack/charts/tooltip";
 import type { ChartValue } from "@tanstack/charts/types";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useContainerWidth } from "@/hooks/use-container-width";
 import { contiguousSegments, plottableTaxShare } from "@/lib/data";
 import {
@@ -50,6 +50,9 @@ function ResponsiveChart<
 /* 01 — overview: ranked bars, tax-to-GDP                              */
 /* ------------------------------------------------------------------ */
 
+/** Default view: the extremes only, so the section stays scannable. */
+const RANKED_EXTREMES = 15;
+
 export function RankedBars({
 	rows,
 	onSelect,
@@ -65,11 +68,21 @@ export function RankedBars({
 		[rows],
 	);
 
+	const [showAll, setShowAll] = useState(false);
+
+	// Default view shows only the extremes so the section stays scannable;
+	// "Show all" expands to every plottable country.
+	const displayed = useMemo(() => {
+		if (showAll) return data;
+		if (data.length <= RANKED_EXTREMES * 2) return data;
+		return [...data.slice(0, RANKED_EXTREMES), ...data.slice(-RANKED_EXTREMES)];
+	}, [data, showAll]);
+
 	const chart = useMemo(
 		() =>
 			defineChart({
 				marks: [
-					barX(data, {
+					barX(displayed, {
 						x: "taxRevenue",
 						y: "countryName",
 						color: "incomeGroup",
@@ -88,19 +101,32 @@ export function RankedBars({
 				maxFocusDistance: 24,
 				tooltip,
 			}),
-		[data],
+		[displayed],
 	);
 
 	return (
-		<ResponsiveChart
-			definition={chart}
-			ariaLabel="Countries ranked by tax revenue as a share of GDP"
-			height={data.length * 14 + 48}
-			onSelect={(point) => {
-				const iso3 = point?.datum?.iso3;
-				if (typeof iso3 === "string") onSelect?.(iso3);
-			}}
-		/>
+		<div className="space-y-2">
+			<ResponsiveChart
+				definition={chart}
+				ariaLabel="Countries ranked by tax revenue as a share of GDP"
+				height={displayed.length * 14 + 48}
+				onSelect={(point) => {
+					const iso3 = point?.datum?.iso3;
+					if (typeof iso3 === "string") onSelect?.(iso3);
+				}}
+			/>
+			{data.length > RANKED_EXTREMES * 2 && (
+				<button
+					type="button"
+					className="text-muted-foreground text-xs underline underline-offset-2 hover:text-foreground"
+					onClick={() => setShowAll((v) => !v)}
+				>
+					{showAll
+						? `Show top ${RANKED_EXTREMES} + bottom ${RANKED_EXTREMES} only`
+						: `Show all ${data.length} countries`}
+				</button>
+			)}
+		</div>
 	);
 }
 
@@ -224,8 +250,8 @@ export function GapBandChart({ series }: { series: CountryYearRecord[] }) {
 						y2: "cap",
 						z: "z",
 						key: (d: { year: number }) => `a${d.year}`,
-						fill: "#8a8a95",
-						fillOpacity: 0.2,
+						fill: "#5DCAA5", // teal accent for the forgone-revenue gap
+						fillOpacity: 0.22,
 					}),
 					lineY(rows, {
 						x: "year",
@@ -233,14 +259,15 @@ export function GapBandChart({ series }: { series: CountryYearRecord[] }) {
 						z: "z",
 						key: (d: { year: number; z: number }) => `cap-${d.z}-${d.year}`,
 						strokeDasharray: "5 4",
-						stroke: "#b9b9c2",
+						stroke: "#8a8a93", // muted: benchmark, not the headline
 					}),
 					lineY(rows, {
 						x: "year",
 						y: "actual",
 						z: "z",
 						key: (d: { year: number; z: number }) => `act-${d.z}-${d.year}`,
-						stroke: "#f4f4f5",
+						// coral: the actual collection story
+						stroke: "#D85A30",
 					}),
 				],
 				x: {
@@ -322,8 +349,7 @@ export function CompositionOverview({ rows }: { rows: WorldSnapshotRow[] }) {
 					.map((r) => r[cat.key])
 					.filter((v): v is number => v != null);
 				if (values.length === 0) continue;
-				const avg =
-					values.reduce((a, b) => a + b, 0) / values.length;
+				const avg = values.reduce((a, b) => a + b, 0) / values.length;
 				out.push({
 					group,
 					cat: cat.key,
@@ -423,14 +449,9 @@ export function CompositionTime({ series }: { series: CountryYearRecord[] }) {
 		return out;
 	}, [series]);
 
-	if (stacked.length === 0) {
-		return (
-			<p className="motion-state-enter text-muted-foreground text-sm">
-				No composition breakdown available for this country.
-			</p>
-		);
-	}
-
+	// All hooks must run before any conditional return: this component can
+	// flip between empty and non-empty data on country switch, and a hook
+	// count change would crash React with "Rendered more/fewer hooks".
 	const chart = useMemo(
 		() =>
 			defineChart({
@@ -467,6 +488,14 @@ export function CompositionTime({ series }: { series: CountryYearRecord[] }) {
 			}),
 		[stacked],
 	);
+
+	if (stacked.length === 0) {
+		return (
+			<p className="motion-state-enter text-muted-foreground text-sm">
+				No composition breakdown available for this country.
+			</p>
+		);
+	}
 
 	return (
 		<ResponsiveChart
@@ -508,17 +537,14 @@ export function PeerCompare({
 		},
 	].filter((r) => r.value != null && r.label !== "");
 
-	if (rows.length === 0) {
-		return (
-			<p className="motion-state-enter text-muted-foreground text-sm">
-				No recent tax-revenue figure to compare for this country.
-			</p>
-		);
-	}
-
-	const peerScale = scaleOrdinal<string, string>()
-		.domain(["country", "peer"])
-		.range(["#f4f4f5", "#63636e"]);
+	// Hooks before conditional returns (see CompositionTime note).
+	const peerScale = useMemo(
+		() =>
+			scaleOrdinal<string, string>()
+				.domain(["country", "peer"])
+				.range(["#D85A30", "#8a8a93"]),
+		[],
+	);
 
 	const chart = useMemo(
 		() =>
@@ -542,6 +568,14 @@ export function PeerCompare({
 			}),
 		[rows, peerScale],
 	);
+
+	if (rows.length === 0) {
+		return (
+			<p className="motion-state-enter text-muted-foreground text-sm">
+				No recent tax-revenue figure to compare for this country.
+			</p>
+		);
+	}
 
 	return (
 		<ResponsiveChart
@@ -577,20 +611,23 @@ export function RatesTimeline({ series }: { series: CountryYearRecord[] }) {
 	}, [series]);
 
 	const hasAny = lines.some((l) => l.rows.length > 0);
-	if (!hasAny) {
-		return (
-			<p className="motion-state-enter text-muted-foreground text-sm">
-				No statutory rate history available for this country.
-			</p>
-		);
-	}
 
-	const allRows = lines.flatMap((l) =>
-		l.rows.map((r) => ({ ...r, kind: l.label })),
+	// Hooks before conditional returns (see CompositionTime note).
+	const allRows = useMemo(
+		() => lines.flatMap((l) => l.rows.map((r) => ({ ...r, kind: l.label }))),
+		[lines],
 	);
-	const rateScale = scaleOrdinal<string, string>()
-		.domain(lines.map((l) => l.label))
-		.range(["#f4f4f5", "#b9b9c2", "#71717a"]);
+	const rateScale = useMemo(
+		() =>
+			scaleOrdinal<string, string>()
+				.domain(lines.map((l) => l.label))
+				.range([
+					COMPOSITION_COLORS.pit, // PIT shares violet with income taxes
+					COMPOSITION_COLORS.cit, // CIT shares coral with corporate taxes
+					COMPOSITION_COLORS.vat, // VAT shares teal with consumption taxes
+				]),
+		[lines],
+	);
 
 	const chart = useMemo(
 		() =>
@@ -616,6 +653,14 @@ export function RatesTimeline({ series }: { series: CountryYearRecord[] }) {
 			}),
 		[allRows, rateScale],
 	);
+
+	if (!hasAny) {
+		return (
+			<p className="motion-state-enter text-muted-foreground text-sm">
+				No statutory rate history available for this country.
+			</p>
+		);
+	}
 
 	return (
 		<ResponsiveChart

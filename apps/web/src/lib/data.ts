@@ -32,16 +32,20 @@ export interface CountryCoverage {
 export const fetchCoverage = () =>
 	getJson<Record<string, CountryCoverage>>("/data/coverage.json");
 
-/** Wrap a state update in the View Transitions API when available. */
-export function withViewTransition(update: () => void | Promise<void>) {
+/** Wrap a state update in the View Transitions API when available.
+ * Returns the transition (whose `finished` promise resolves after the
+ * animation) or undefined when the API is unsupported. */
+export function withViewTransition(
+	update: () => void | Promise<void>,
+): ViewTransition | undefined {
 	if (
 		typeof document !== "undefined" &&
 		typeof document.startViewTransition === "function"
 	) {
-		document.startViewTransition(update);
-	} else {
-		void update();
+		return document.startViewTransition(update);
 	}
+	void update();
+	return undefined;
 }
 
 /**

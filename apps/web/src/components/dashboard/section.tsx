@@ -7,6 +7,7 @@ export function Section({
 	question,
 	children,
 	aside,
+	id,
 }: {
 	number: string;
 	kicker: string;
@@ -15,9 +16,14 @@ export function Section({
 	children: ReactNode;
 	/** chart + legend, rendered adjacent on desktop */
 	aside?: ReactNode;
+	/** optional anchor id (e.g. scroll target after a country selection) */
+	id?: string;
 }) {
 	return (
-		<section className="mx-auto max-w-6xl scroll-mt-16 px-4 py-16 md:py-24">
+		<section
+			id={id}
+			className="mx-auto max-w-6xl scroll-mt-16 px-4 py-16 md:py-24"
+		>
 			<div className="grid gap-8 md:grid-cols-2 md:gap-12">
 				<div>
 					<p className="mb-3 font-mono text-muted-foreground text-xs uppercase tracking-widest">

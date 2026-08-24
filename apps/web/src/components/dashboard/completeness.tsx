@@ -100,6 +100,99 @@ export function CompletenessHeatmap({
 	);
 }
 
+/** Country-mode per-year coverage timeline: one cell per year, shaded by
+ * which source carries data for it. Shows the real gaps instead of just a
+ * min–max range. */
+export function CountryCoverageTimeline({
+	meta,
+	coverage,
+}: {
+	meta: CountryMeta;
+	coverage: CountryCoverage | undefined;
+}) {
+	// Tax coverage only: the primary tax series plus the IMF *tax-revenue*
+	// series. imfGov (govRevenueImf) is total government revenue including
+	// non-tax sources — counting its years here would claim tax coverage
+	// the tax dataset does not have. It stays documented in Methodology.
+	const { taxSet, imfTaxSet } = useMemo(() => {
+		const cov = coverage ?? { tax: [], imfTax: [], imfGov: [] };
+		return {
+			taxSet: new Set(cov.tax),
+			imfTaxSet: new Set(cov.imfTax),
+		};
+	}, [coverage]);
+
+	const lastYear = Math.max(meta.yearMax, ...imfTaxSet, meta.yearMin);
+	const years: number[] = [];
+	for (let y = meta.yearMin; y <= lastYear; y++) years.push(y);
+
+	return (
+		<div className="min-w-0">
+			<div className="flex flex-wrap gap-px">
+				{years.map((y) => {
+					const primary = taxSet.has(y);
+					const imf = imfTaxSet.has(y);
+					const background = primary
+						? imf
+							? "#f4f4f5"
+							: "#b9b9c2"
+						: imf
+							? "#5f5f6b"
+							: "transparent";
+					return (
+						<div
+							key={y}
+							title={`${y}: ${
+								primary
+									? imf
+										? "primary + IMF"
+										: "primary source"
+									: imf
+										? "IMF only"
+										: "no data"
+							}`}
+							className={`h-5 w-2.5 ${
+								primary || imf ? "" : "border border-border/40"
+							}`}
+							style={{ background }}
+						/>
+					);
+				})}
+			</div>
+			<div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-muted-foreground text-xs">
+				<span className="inline-flex items-center gap-1.5">
+					<span
+						className="inline-block h-2.5 w-2"
+						style={{ background: "#f4f4f5" }}
+					/>
+					Primary + IMF
+				</span>
+				<span className="inline-flex items-center gap-1.5">
+					<span
+						className="inline-block h-2.5 w-2"
+						style={{ background: "#b9b9c2" }}
+					/>
+					Primary source
+				</span>
+				<span className="inline-flex items-center gap-1.5">
+					<span
+						className="inline-block h-2.5 w-2"
+						style={{ background: "#5f5f6b" }}
+					/>
+					IMF only
+				</span>
+				<span className="inline-flex items-center gap-1.5">
+					<span className="inline-block h-2.5 w-2 border border-border/40" />
+					No data
+				</span>
+			</div>
+			<p className="mt-1 text-[11px] text-muted-foreground">
+				{years[0]}–{years[years.length - 1]}, one cell per year
+			</p>
+		</div>
+	);
+}
+
 /** Country-mode coverage tag, shown whenever coverage stops short of today. */
 export function CoverageTag({ meta }: { meta: CountryMeta }) {
 	const parts: string[] = [];

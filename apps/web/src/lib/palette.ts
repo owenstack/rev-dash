@@ -23,7 +23,9 @@ export function hexToRgbFloats(hex: string): [number, number, number] {
 	return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
 }
 
-/** Grayscale ramp for tax-composition categories — monochrome-first. */
+/** Categorical colors for tax-composition categories, derived from the
+ * reserved accent palette so charts stay visually cohesive. "Other" is
+ * deliberately neutral — it's the catch-all, not a distinct instrument. */
 export const COMPOSITION_CATEGORIES = [
 	{ key: "pit", label: "Personal income" },
 	{ key: "cit", label: "Corporate income" },
@@ -34,10 +36,10 @@ export const COMPOSITION_CATEGORIES = [
 ] as const;
 
 export const COMPOSITION_COLORS: Record<string, string> = {
-	pit: "#f4f4f5",
-	cit: "#b9b9c2",
-	vat: "#8a8a95",
-	excise: "#5f5f6b",
-	trade: "#3d3d48",
-	other: "#28282f",
+	pit: "#7F77DD", // violet (High income accent)
+	cit: "#D85A30", // coral/rust (Low income accent)
+	vat: "#5DCAA5", // teal (Upper middle accent)
+	excise: "#EF9F27", // amber (Lower middle accent)
+	trade: "#4E8FD9", // blue — supplementary hue, distinct from the four above
+	other: "#8a8a93", // neutral gray — catch-all
 };

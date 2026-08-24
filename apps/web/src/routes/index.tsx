@@ -15,6 +15,7 @@ import {
 } from "@/components/dashboard/charts";
 import {
 	CompletenessHeatmap,
+	CountryCoverageTimeline,
 	CoverageTag,
 	Methodology,
 } from "@/components/dashboard/completeness";
@@ -23,6 +24,7 @@ import { CountryGlobe } from "@/components/dashboard/globe";
 import { Section } from "@/components/dashboard/section";
 import { useContainerWidth } from "@/hooks/use-container-width";
 import {
+	type CountryCoverage,
 	fetchCountryIndex,
 	fetchCountrySeries,
 	fetchCoverage,
@@ -72,12 +74,36 @@ function DashboardPage() {
 		: null;
 
 	const select = (iso3: string | null) => {
-		withViewTransition(() =>
+		const navigateTo = () =>
 			navigate({
 				to: ".",
 				search: (prev) => ({ ...prev, country: iso3 ?? undefined }),
-			}),
-		);
+			});
+		// After a country selection, bring the country-specific capacity
+		// section into view once the route update settles. Clearing returns
+		// to the overview without moving the page.
+		if (!iso3) {
+			withViewTransition(navigateTo);
+			return;
+		}
+		const scrollToCapacity = () => {
+			document
+				.getElementById("country-capacity")
+				?.scrollIntoView({ behavior: "smooth", block: "start" });
+		};
+		const supportsViewTransitions =
+			typeof document !== "undefined" &&
+			typeof document.startViewTransition === "function";
+		if (supportsViewTransitions) {
+			const transition = withViewTransition(navigateTo);
+			// scroll once the morph finishes
+			transition?.finished.then(scrollToCapacity).catch(scrollToCapacity);
+		} else {
+			// no View Transitions API: navigate once, then scroll when settled
+			navigateTo()
+				.then(scrollToCapacity)
+				.catch(() => {});
+		}
 	};
 
 	const worldRows = data.world;
@@ -129,7 +155,12 @@ function DashboardPage() {
 			)}
 
 			{series && selectedMeta && (
-				<CountrySections series={series} meta={selectedMeta} rows={worldRows} />
+				<CountrySections
+					series={series}
+					meta={selectedMeta}
+					rows={worldRows}
+					coverage={data.coverage[selectedMeta.iso3]}
+				/>
 			)}
 
 			<Methodology sources={data.sources} index={data.index} />
@@ -290,10 +321,12 @@ function CountrySections({
 	series,
 	meta,
 	rows,
+	coverage,
 }: {
 	series: Awaited<ReturnType<typeof fetchCountrySeries>>;
 	meta: CountryMeta;
 	rows: WorldSnapshotRow[];
+	coverage: CountryCoverage | undefined;
 }) {
 	const peerStats = useMemo(() => {
 		const latest = new Map<string, number>();
@@ -324,6 +357,7 @@ function CountrySections({
 	return (
 		<>
 			<Section
+				id="country-capacity"
 				number="01"
 				kicker="Capacity over time"
 				question={`Is ${meta.name} collecting as much tax as it could?`}
@@ -408,7 +442,12 @@ function CountrySections({
 				number="05"
 				kicker="Coverage"
 				question={`How complete is the record for ${meta.name}?`}
-				aside={<CoverageTag meta={meta} />}
+				aside={
+					<div className="space-y-3">
+						<CoverageTag meta={meta} />
+						<CountryCoverageTimeline meta={meta} coverage={coverage} />
+					</div>
+				}
 			>
 				<p>
 					{coveredYears} years carry tax-revenue data for {meta.name}
